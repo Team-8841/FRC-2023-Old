@@ -81,7 +81,7 @@ public final class Constants {
 
     public static final double driveMotorRampTime = 0.1; // Drivetrain open loop ramp time
 
-    public static final double[] turnAngleOffsets = { 149.1+90, 38.5+90, 276.5+90-180, 193.6+90-180}; // degrees
+    public static final double[] turnAngleOffsets = { 150+90, 42+90, 99+90, 195+90-180}; // degrees
     public static final boolean[] turnEncoderInversed = { false, false, false, false };
 
     public static final double turnPID_P = 0.5;
@@ -353,7 +353,7 @@ public final class Constants {
     public static final double rampXPos = 4.33197;
     public static final double robotWidth = 0.762;// don't take into account bumpers
 
-    public static final double velocityPID_P = 0.5;
+    public static final double velocityPID_P = 0.5*2;
     public static final double velocityPID_I = 0;
     public static final double velocityPID_D = 0;
   }
