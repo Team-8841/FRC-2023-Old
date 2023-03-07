@@ -108,10 +108,10 @@ public class SwerveDrive extends SubsystemBase {
 
         UpdatePID();
 
-        configureFalconCoast(out_frontLeftDriveMotor);
-        configureFalconCoast(out_frontRightDriveMotor);
-        configureFalconCoast(out_backLeftDriveMotor);
-        configureFalconCoast(out_backRightDriveMotor);
+        configureFalconBrake(out_frontLeftDriveMotor);
+        configureFalconBrake(out_frontRightDriveMotor);
+        configureFalconBrake(out_backLeftDriveMotor);
+        configureFalconBrake(out_backRightDriveMotor);
 
         //
         configureFalconCoast(out_frontLeftTurnMotor);

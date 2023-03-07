@@ -100,6 +100,9 @@ public final class Constants {
     private static final double wheelRadius = 0.0460375;
     private static final double talon_DriveMotor_SpeedCoef = 1D / 13871;
     public static final double talon_DriveMotor_SensorToMeters = 2 * Math.PI * wheelRadius * talon_DriveMotor_SpeedCoef;
+
+    public static final double manualSlowMult = 0.5;
+    public static final double manualSlowTurnMult = 0.5;
   }
 
   public static class SwerveDriveMathConstants {
@@ -156,7 +159,7 @@ public final class Constants {
       public static final double verticalIntakePositionPID_P = 0.5;
       public static final double verticalIntakePositionPID_I = 0;
       public static final double verticalIntakePositionPID_D = 0;
-      public static final double verticalIntakePositionTarget = 0;//TODO: set this to required angle
+      public static final double verticalIntakePositionTarget = 310;//TODO: set this to required angle
       public static final double verticalIntakePositionAtTargetMoE = 5;//TODO: set this to required angle
 
     public static final int verticalIntakeEncoderID = 16; // TODO: update this
@@ -353,7 +356,7 @@ public final class Constants {
     public static final double rampXPos = 4.33197;
     public static final double robotWidth = 0.762;// don't take into account bumpers
 
-    public static final double velocityPID_P = 0.5*2;
+    public static final double velocityPID_P = 0.5*1.4;
     public static final double velocityPID_I = 0;
     public static final double velocityPID_D = 0;
   }

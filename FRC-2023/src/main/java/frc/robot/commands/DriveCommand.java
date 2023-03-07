@@ -37,10 +37,14 @@ public class DriveCommand extends CommandBase {
           rotationSpeed = 0;
         }
         double joyMag = joystickVector.getMagnitude();
-        double curvedMag = (3*joyMag*joyMag*joyMag+1)/4*Math.sqrt(joyMag); //todo: make better curves :(
+        double curvedMag = ((3*joyMag*joyMag*joyMag) + Math.sqrt(joyMag))/4; //todo: make better curves :(
         curvedMag = Math.max((curvedMag-Constants.DriveConstants.driveDeadband)/(1-Constants.DriveConstants.driveDeadband), 0);
         double absRotation = Math.abs(rotationSpeed);
         double newRotationSpeed = ((3*absRotation*absRotation*absRotation+1)/4*Math.sqrt(absRotation)) * Math.signum(rotationSpeed); 
+        if(controller.rightBumper().getAsBoolean()) {
+          curvedMag*=Constants.DriveConstants.manualSlowMult;
+          newRotationSpeed*=Constants.DriveConstants.manualSlowTurnMult;
+        }
         Vector2[] wheelSpeeds = swerveDrive.SetWheelSpeeds(curvedMag, joystickVector.getAngle(), newRotationSpeed);
     }
   

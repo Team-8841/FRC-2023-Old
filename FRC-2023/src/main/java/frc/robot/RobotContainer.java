@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ArmConstants;
@@ -25,9 +24,7 @@ import frc.robot.Constants.FieldConstants.GoalRow;
 import frc.robot.commands.ArmGotoPosition;
 import frc.robot.commands.AutoCommand;
 import frc.robot.commands.Autos;
-import frc.robot.commands.BalanceCommand;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.SimpleAuto;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CargoHandler;
 import frc.robot.subsystems.SwerveDrive;
@@ -48,8 +45,9 @@ public class RobotContainer {
   private static final CommandXboxController gamepad = new CommandXboxController(GPPorts.controllerPort);
 
   private final Compressor out_compressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
-  public boolean autoBalancing = false;
-  public boolean autoBalanceSet = false;
+  /*public boolean autoBalancing = false;
+  public boolean autoBalanceSet = false;*/
+  
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -67,7 +65,9 @@ public class RobotContainer {
     if(swerveDrive.getCurrentCommand() != null) {
       swerveDrive.getCurrentCommand().cancel();
     }
+    //autoBalancing=false;
     swerveDrive.setDefaultCommand(new DriveCommand(swerveDrive, vision, gamepad));
+    
     // swerveDrive.setDefaultCommand(new BalanceCommand(swerveDrive, vision));
     // Cargo Handler Default Command
     cargoHandler.setDefaultCommand(new RunCommand(() -> {
@@ -97,6 +97,7 @@ public class RobotContainer {
       if(gamepad.start().getAsBoolean()) {
       swerveDrive.setYAW(0); 
       }
+      /*
       if(gamepad.leftBumper().getAsBoolean()) {
         
        // Toggle auto balance
@@ -116,7 +117,7 @@ public class RobotContainer {
     }
       } else {
       autoBalanceSet=false;
-    }
+    }*/
     }
   private void configureBindings(){
 
