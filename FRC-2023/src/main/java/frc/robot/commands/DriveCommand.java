@@ -38,6 +38,28 @@ public class DriveCommand extends CommandBase {
         }
         double joyMag = joystickVector.getMagnitude();
         joyMag = Math.max((joyMag-Constants.DriveConstants.driveDeadband)/(1-Constants.DriveConstants.driveDeadband), 0);
+        if(!controller.povCenter().getAsBoolean()) {
+          joyMag = 1;
+          double diag = 1/Math.sqrt(2);
+          if(controller.povUp().getAsBoolean()) {
+            joystickVector = new Vector2(0, 1);
+          } else if(controller.povDown().getAsBoolean()) {
+            joystickVector = new Vector2(0, -1);
+          } else if(controller.povRight().getAsBoolean()) {
+            joystickVector = new Vector2(1, 0);
+          } else if(controller.povLeft().getAsBoolean()) {
+            joystickVector = new Vector2(-1, 0);
+          } 
+          else if(controller.povUpRight().getAsBoolean()) {
+            joystickVector = new Vector2(diag, diag);
+          } else if(controller.povUpLeft().getAsBoolean()) {
+            joystickVector = new Vector2(-diag, diag);
+          } else if(controller.povDownRight().getAsBoolean()) {
+            joystickVector = new Vector2(diag, -diag);
+          } else if(controller.povDownLeft().getAsBoolean()) {
+            joystickVector = new Vector2(-diag, -diag);
+          }
+        }
         double curvedMag = ((7*joyMag*joyMag*joyMag) + Math.sqrt(joyMag))/8; //todo: make better curves :(
         double absRotation = Math.abs(rotationSpeed);
         double newRotationSpeed = ((3*absRotation*absRotation*absRotation+1)/4*Math.sqrt(absRotation)) * Math.signum(rotationSpeed); 
