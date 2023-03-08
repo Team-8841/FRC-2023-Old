@@ -25,6 +25,7 @@ import frc.robot.commands.ArmGotoPosition;
 import frc.robot.commands.AutoCommand;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.SimpleAuto2;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CargoHandler;
 import frc.robot.subsystems.SwerveDrive;
@@ -45,8 +46,8 @@ public class RobotContainer {
   private static final CommandXboxController gamepad = new CommandXboxController(GPPorts.controllerPort);
 
   private final Compressor out_compressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
-  /*public boolean autoBalancing = false;
-  public boolean autoBalanceSet = false;*/
+  public boolean autoBalancing = false;
+  public boolean autoBalanceSet = false;
   
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -65,7 +66,7 @@ public class RobotContainer {
     if(swerveDrive.getCurrentCommand() != null) {
       swerveDrive.getCurrentCommand().cancel();
     }
-    //autoBalancing=false;
+    autoBalancing=false;
     swerveDrive.setDefaultCommand(new DriveCommand(swerveDrive, vision, gamepad));
     
     // swerveDrive.setDefaultCommand(new BalanceCommand(swerveDrive, vision));
@@ -97,7 +98,7 @@ public class RobotContainer {
       if(gamepad.start().getAsBoolean()) {
       swerveDrive.setYAW(0); 
       }
-      /*
+      SmartDashboard.putBoolean("AFIPOANF", gamepad.leftBumper().getAsBoolean());
       if(gamepad.leftBumper().getAsBoolean()) {
         
        // Toggle auto balance
@@ -109,7 +110,7 @@ public class RobotContainer {
       } else {
         SmartDashboard.putNumber("Testing2", 1);
         swerveDrive.getCurrentCommand().cancel();
-        swerveDrive.setDefaultCommand(new SequentialCommandGroup(new SimpleAuto(swerveDrive), new BalanceCommand(swerveDrive, vision)));
+        swerveDrive.setDefaultCommand(new SimpleAuto2(swerveDrive, vision));
       }
       autoBalancing=!autoBalancing;
       autoBalanceSet=true;
@@ -117,7 +118,7 @@ public class RobotContainer {
     }
       } else {
       autoBalanceSet=false;
-    }*/
+    }
     }
   private void configureBindings(){
 

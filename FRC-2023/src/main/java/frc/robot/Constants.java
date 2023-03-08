@@ -71,6 +71,9 @@ public final class Constants {
     public static double autoRotationCorrectionPID_P = 0.5;
     public static double autoRotationCorrectionPID_I = 0;
     public static double autoRotationCorrectionPID_D = 0;
+
+    public static double simpleAutoTranslationSpeed=0.35;
+    public static double simpleAutoTranslationSpeedOnBalance=0.2;
   }
 
   public static class DriveConstants {

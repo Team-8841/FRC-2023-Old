@@ -77,6 +77,7 @@ public class DriveCommand extends CommandBase {
           curvedMag*=Constants.DriveConstants.manualSlowMult;
           newRotationSpeed*=Constants.DriveConstants.manualSlowTurnMult;
         }
+        SmartDashboard.putString("WHYDD", joystickVector.toString(3));
         Vector2[] wheelSpeeds = swerveDrive.SetWheelSpeeds(curvedMag, joystickVector.getAngle(), newRotationSpeed);
     }
   
