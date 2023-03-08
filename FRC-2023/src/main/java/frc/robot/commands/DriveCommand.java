@@ -1,9 +1,11 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 import frc.robot.Constants.DSConstants.GPPorts;
+import frc.robot.helpers.AutoOutput;
 import frc.robot.helpers.Vector2;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Vision;
@@ -24,6 +26,7 @@ public class DriveCommand extends CommandBase {
         this.controller = gamepad;
         addRequirements(swerveDrive);
         swerveDrive.Start();
+        Autos.Start();
     }
   
     // Called every time the scheduler runs while the command is scheduled.
@@ -32,34 +35,41 @@ public class DriveCommand extends CommandBase {
         swerveDrive.UpdateOrientation(limelight);
         Vector2 joystickVector = new Vector2(controller.getRawAxis(GPPorts.axisLX), -controller.getRawAxis(GPPorts.axisLY));
         double rotationSpeed = controller.getRawAxis(GPPorts.axisRX);
-  
-        if(Math.abs(rotationSpeed) < 0.1) {
+        if(Math.abs(rotationSpeed) < 0.05) {
           rotationSpeed = 0;
         }
-        double joyMag = joystickVector.getMagnitude();
-        joyMag = Math.max((joyMag-Constants.DriveConstants.driveDeadband)/(1-Constants.DriveConstants.driveDeadband), 0);
+        //
         if(!controller.povCenter().getAsBoolean()) {
-          joyMag = 1;
-          double diag = 1/Math.sqrt(2);
+          rotationSpeed=0;
+          double targAngle = Math.PI/180;
+          
           if(controller.povUp().getAsBoolean()) {
-            joystickVector = new Vector2(0, 1);
+            targAngle*=0;
           } else if(controller.povDown().getAsBoolean()) {
-            joystickVector = new Vector2(0, -1);
+            targAngle*=180;
           } else if(controller.povRight().getAsBoolean()) {
-            joystickVector = new Vector2(1, 0);
+            targAngle*=90;
           } else if(controller.povLeft().getAsBoolean()) {
-            joystickVector = new Vector2(-1, 0);
+            targAngle*=-90;
           } 
           else if(controller.povUpRight().getAsBoolean()) {
-            joystickVector = new Vector2(diag, diag);
+            targAngle*=45;
           } else if(controller.povUpLeft().getAsBoolean()) {
-            joystickVector = new Vector2(-diag, diag);
+            targAngle*=-45;
           } else if(controller.povDownRight().getAsBoolean()) {
-            joystickVector = new Vector2(diag, -diag);
+            targAngle*=180-45;
           } else if(controller.povDownLeft().getAsBoolean()) {
-            joystickVector = new Vector2(-diag, -diag);
+            targAngle*=180+45-360;
           }
+          Autos.UpdatePID();
+          SmartDashboard.putNumber("TArg Test ", targAngle * 180 / Math.PI);
+          AutoOutput output = Autos.GetSpeed(new Vector2(), swerveDrive.getYAW(), new Vector2(), new Vector2(), targAngle, 0);
+          SmartDashboard.putNumber("TArg Rot", output.rotationSpeed);
+          rotationSpeed = output.rotationSpeed*0.2;
         }
+        //
+        double joyMag = joystickVector.getMagnitude();
+        joyMag = Math.max((joyMag-Constants.DriveConstants.driveDeadband)/(1-Constants.DriveConstants.driveDeadband), 0);
         double curvedMag = ((7*joyMag*joyMag*joyMag) + Math.sqrt(joyMag))/8; //todo: make better curves :(
         double absRotation = Math.abs(rotationSpeed);
         double newRotationSpeed = ((3*absRotation*absRotation*absRotation+1)/4*Math.sqrt(absRotation)) * Math.signum(rotationSpeed); 

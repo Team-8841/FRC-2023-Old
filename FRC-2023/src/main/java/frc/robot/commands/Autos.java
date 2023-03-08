@@ -22,6 +22,11 @@ public final class Autos {
   public static void Start() {
     displacementPid.enableContinuousInput(-AutoConstants.autoCorrection_MaxMeters, AutoConstants.autoCorrection_MaxMeters);
     displacementPid.setSetpoint(0);
+    rotationPid.enableContinuousInput(-Math.PI, Math.PI);
+    rotationPid.setSetpoint(0);
+    SmartDashboard.putNumber("auto rotation PID P", rotationPid.getP());
+    SmartDashboard.putNumber("auto rotation PID I", rotationPid.getI());
+    SmartDashboard.putNumber("auto rotation PID D", rotationPid.getD());
   }
   //ex: SetPath(AutoConstants.AutoPaths.D0_P1_C_B);
   public static void SetPath(AutoPaths chosenPath) {
@@ -68,8 +73,8 @@ public final class Autos {
     Vector2 dir = new Vector2(targetPosition.x - position.x, targetPosition.y - position.y);
 
     double rotDif = (Math.PI + targRot - rotation + 8 * Math.PI) % (2 * Math.PI) - Math.PI;
-    double rotationCorrectionSpeed = rotationPid.calculate(rotDif)*0;
-
+    double rotationCorrectionSpeed = rotationPid.calculate(rotDif);
+    SmartDashboard.putNumber("AGHHHH", rotDif);
     double distance = dir.getMagnitude();
     double correctionSpeed = displacementPid.calculate(distance / Math.max(AutoConstants.autoCorrection_MaxMeters, Math.abs(distance)));
     if(dir.getMagnitude() != 0) {

@@ -20,7 +20,7 @@ public class SimpleAuto extends CommandBase {
     @Override
     public void execute() {
         SmartDashboard.putNumber("Testing", Math.random());
-        swerveDrive.SetWheelSpeeds(0.25, -swerveDrive.getYAW() - Math.PI/2, 0);
+        swerveDrive.SetWheelSpeeds(0.25, -swerveDrive.getYAW() + Math.PI/2, 0);
     }
   
     // Called once the command ends or is interrupted.

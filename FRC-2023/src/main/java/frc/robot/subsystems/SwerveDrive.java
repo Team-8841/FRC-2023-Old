@@ -357,7 +357,7 @@ public class SwerveDrive extends SubsystemBase {
     public void updateStatus(){
         SmartDashboard.putString("Robot position", position.toString());
         SmartDashboard.putString("Robot velocity", getVelocity().toString());
-        SmartDashboard.putString("Robot tilt direction", GetTilt().tiltDirection.toString());
+        SmartDashboard.putString("Robot tilt direction", GetTilt().tiltDirection.toString(3));
         SmartDashboard.putNumber("Robot tilt", GetTilt().tilt);
     }
 }
