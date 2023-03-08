@@ -101,7 +101,7 @@ public final class Constants {
     private static final double talon_DriveMotor_SpeedCoef = 1D / 13871;
     public static final double talon_DriveMotor_SensorToMeters = 2 * Math.PI * wheelRadius * talon_DriveMotor_SpeedCoef;
 
-    public static final double manualSlowMult = 0.5;
+    public static final double manualSlowMult = 0.2;
     public static final double manualSlowTurnMult = 0.5;
   }
 

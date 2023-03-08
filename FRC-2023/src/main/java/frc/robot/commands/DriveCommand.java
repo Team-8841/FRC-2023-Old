@@ -37,8 +37,8 @@ public class DriveCommand extends CommandBase {
           rotationSpeed = 0;
         }
         double joyMag = joystickVector.getMagnitude();
-        double curvedMag = ((3*joyMag*joyMag*joyMag) + Math.sqrt(joyMag))/4; //todo: make better curves :(
-        curvedMag = Math.max((curvedMag-Constants.DriveConstants.driveDeadband)/(1-Constants.DriveConstants.driveDeadband), 0);
+        joyMag = Math.max((joyMag-Constants.DriveConstants.driveDeadband)/(1-Constants.DriveConstants.driveDeadband), 0);
+        double curvedMag = ((7*joyMag*joyMag*joyMag) + Math.sqrt(joyMag))/8; //todo: make better curves :(
         double absRotation = Math.abs(rotationSpeed);
         double newRotationSpeed = ((3*absRotation*absRotation*absRotation+1)/4*Math.sqrt(absRotation)) * Math.signum(rotationSpeed); 
         if(controller.rightBumper().getAsBoolean()) {
