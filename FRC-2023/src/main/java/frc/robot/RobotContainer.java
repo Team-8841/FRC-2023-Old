@@ -94,6 +94,7 @@ public class RobotContainer {
     Autos.Start();
   }
     public void periodic() {
+      SmartDashboard.putString("Selected Auto", getAutonomousPath().name());
       //I'm sorry Brian
       if(gamepad.start().getAsBoolean()) {
       swerveDrive.setYAW(0); 
@@ -264,11 +265,13 @@ public class RobotContainer {
   // Gets the selected autonomous path
   public static AutoPaths getAutonomousPath() {
     double angle = copilotDS.getRawAxis(DSPorts.auto);
+    SmartDashboard.putNumber("Auto Angle", angle);
     AutoPaths path = AutoPaths.defaultPath;
-    double currentDif = DSConstants.autoKnobMoE;
+    double currentDif = Double.NaN;
     for (var i : AutoPaths.values()) {
+      if(DSConstants.autoKnobAngles[i.value] == Double.NaN) {continue;}
       double angleDif = Math.abs(angle - DSConstants.autoKnobAngles[i.value]);
-      if (angleDif < currentDif) {
+      if (angleDif < currentDif || currentDif == Double.NaN) {
         currentDif = angleDif;
         path = i;
       }

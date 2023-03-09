@@ -27,7 +27,9 @@ public final class Constants {
       D2_P2_C_B(5),
       D2_P2_T(6),
       D2_P3_C_T(7),
-      Make_Brian_Sad(8);
+      Make_Brian_Sad(8),
+      SimpleAuto1(9),
+      SimpleAuto2(10);
 
       private AutoPaths(int value) {
         this.value = value;
@@ -46,7 +48,9 @@ public final class Constants {
         "D2 P2 C B",
         "D2 P2 T",
         "D2 P3 C T",
-        "Make Brian sad"
+        "Make Brian sad",
+        null,
+        null
     };
 
     public static PathConstraints[] autoPathContraints = new PathConstraints[] {
@@ -60,7 +64,9 @@ public final class Constants {
         new PathConstraints(4, 3), // D2_P2_C_B
         new PathConstraints(4, 3), // D2_P2_T
         new PathConstraints(4, 3), // D2_P3_C_T
-        new PathConstraints(4, 3) // Make Brian Sad
+        new PathConstraints(4, 3), // Make Brian Sad
+        null, // Auto Path 1
+        null // Auto Path 2
     };
 
     public static double autoCorrectionPID_P = 0.5;
@@ -234,20 +240,19 @@ public final class Constants {
 
     // driver station knob positions for each auto mode
     public static final double[] autoKnobAngles = new double[] { // TODO: configure
-        0, // D0 P1 C B
-        0, // D1 P1 C B
-        0, // D1 P1 T
-        0, // D1 P2 C B
-        0, // D2 P2 B
-        0, // D2 P2 C B
-        0, // D2 P2 T
-        0, // D2 P3 C T
-        0// Make Brian sad
+        Double.NaN, // D0 P1 C B
+        Double.NaN, // D1 P1 C B
+        Double.NaN, // D1 P1 T
+        Double.NaN, // D1 P2 C B
+        Double.NaN, // D2 P2 B
+        Double.NaN, // D2 P2 C B
+        Double.NaN, // D2 P2 T
+        Double.NaN, // D2 P3 C T
+        Double.NaN, // Make Brian sad
+        Double.NaN, // Auto Path 1
+        Double.NaN // Auto Path 2
     };
 
-    // driver station knob position margin of error, allows some wiggle room for the
-    // knob positions set for each auto
-    public static final double autoKnobMoE = 1;// TODO: configure
 
     // Driver station input ports
     public static final class DSPorts {
