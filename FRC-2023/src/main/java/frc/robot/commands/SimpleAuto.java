@@ -2,14 +2,24 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.Vision;
 
-public class SimpleAuto extends CommandBase {
+public class SimpleAuto extends SequentialCommandGroup {
+    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+    public SimpleAuto(SwerveDrive swerveDrive, Vision vision) {
+        super(new SimpleAutoP1(swerveDrive), 
+        new BalanceCommand(swerveDrive, vision));
+    }
+}
+
+class SimpleAutoP1 extends CommandBase {
       
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     public SwerveDrive swerveDrive;
 
-    public SimpleAuto(SwerveDrive swerveDrive) {
+    public SimpleAutoP1(SwerveDrive swerveDrive) {
         this.swerveDrive = swerveDrive;
         
         addRequirements(swerveDrive);
@@ -33,5 +43,3 @@ public class SimpleAuto extends CommandBase {
       return swerveDrive.GetTilt().tilt*180/Math.PI > 4;
     }
 }
-//probably how you have to call this
-//swerveDrive.setDefaultCommand(new SequentialCommandGroup(new SimpleAuto(swerveDrive), new BalanceCommand(swerveDrive, vision)));

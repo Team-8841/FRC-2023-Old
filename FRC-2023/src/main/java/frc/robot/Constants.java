@@ -168,10 +168,10 @@ public final class Constants {
       public static final double verticalIntakePositionPID_P = 0.5;
       public static final double verticalIntakePositionPID_I = 0;
       public static final double verticalIntakePositionPID_D = 0;
-      public static final double verticalIntakePositionTarget = 310;//TODO: set this to required angle
-      public static final double verticalIntakePositionAtTargetMoE = 5;//TODO: set this to required angle
+      public static final double verticalIntakePositionTarget = 310;
+      public static final double verticalIntakePositionAtTargetMoE = 5;
 
-    public static final int verticalIntakeEncoderID = 16; // TODO: update this
+    public static final int verticalIntakeEncoderID = 16;
 
     public static final double turnTableSpeed = 1;
   }

@@ -288,7 +288,7 @@ public class SwerveDrive extends SubsystemBase {
         Vector2 speedFrontRight = Vector2.fromPolar(anglefrontRight, out_frontRightDriveMotor.getSelectedSensorVelocity()/10);
         Vector2 speedBackLeft = Vector2.fromPolar(anglebackLeft, out_backLeftDriveMotor.getSelectedSensorVelocity()/10);
         Vector2 speedBackRight = Vector2.fromPolar(anglebackRight, out_backRightDriveMotor.getSelectedSensorVelocity()/10);
-        return new Vector2((speedFrontLeft.x + speedFrontRight.x + speedBackLeft.x + speedBackRight.x)/4, (speedFrontLeft.y + speedFrontRight.y + speedBackLeft.y + speedBackRight.y)/4);
+        return new Vector2((speedFrontLeft.x + speedFrontRight.x + speedBackLeft.x + speedBackRight.x)/4*DriveConstants.talon_DriveMotor_SensorToMeters, (speedFrontLeft.y + speedFrontRight.y + speedBackLeft.y + speedBackRight.y)/4*DriveConstants.talon_DriveMotor_SensorToMeters);
     }
 
     //resets the robot's yaw to a specified angle
