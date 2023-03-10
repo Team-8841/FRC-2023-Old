@@ -25,6 +25,8 @@ import frc.robot.commands.ArmGotoPosition;
 import frc.robot.commands.AutoCommand;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.SimpleAuto;
+import frc.robot.commands.SimpleAuto2;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.CargoHandler;
 import frc.robot.subsystems.SwerveDrive;
@@ -223,7 +225,13 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new AutoCommand(swerveDrive, vision, getAutonomousPath());
+    AutoPaths path = getAutonomousPath();
+    if(path == AutoPaths.SimpleAuto1) {
+      return new SimpleAuto(swerveDrive, vision);
+    } else if(path == AutoPaths.SimpleAuto2) {
+      return new SimpleAuto2(swerveDrive, vision);
+    }
+    return new AutoCommand(swerveDrive, vision, path);
   }
 
   // Gets the selected scoring column
